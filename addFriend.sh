@@ -36,7 +36,7 @@ addFriend()
                         frndExists
                         genID
 
-                        friend_id=$(psql -d atahernia -AXqtc "SELECT account_id FROM envy_account_info WHERE username = '$frnduser'")
+                        friend_id=$(psql -AXqtc "SELECT account_id FROM envy_account_info WHERE username = '$frnduser'")
 
                         psql <<EOF
                                 INSERT INTO envy_friends VALUES ('$group_id', '$account_id', '$friend_id');
@@ -99,7 +99,7 @@ genID()
                         group_id="$group_id""$rand"
                 done
 
-                group_ID_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT group_id FROM envy_friends WHERE group_id = '$group_id')")
+                group_ID_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT group_id FROM envy_friends WHERE group_id = '$group_id')")
 
                 if [[ "$group_ID_Exists" = 't' ]]
                 then

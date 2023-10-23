@@ -40,7 +40,7 @@ askUser()
                 read -p "Enter username: " username
         done
 
-        userExists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT username FROM envy_accounts WHERE username = '$username')")
+        userExists=$(psql -AXqtc "SELECT EXISTS(SELECT username FROM envy_accounts WHERE username = '$username')")
         if [[ "$userExists" = 't' ]]
         then
                 echo -e "\nThat username already exists, try again..."
@@ -147,7 +147,6 @@ read -sp ""
 kill $pid
 
 psql << EOF
-        \connect atahernia
 
         INSERT INTO envy_accounts VALUES('$username', '$password',
         '$region', '$hint');

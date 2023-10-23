@@ -2,8 +2,8 @@
 
 ## Guild Operations
 
-own_Guild=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT account_id FROM envy_guilds WHERE account_id = '$account_id')")
-in_Guild=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT account_id FROM envy_guild_list WHERE account_id = '$account_id')")
+own_Guild=$(psql -AXqtc "SELECT EXISTS(SELECT account_id FROM envy_guilds WHERE account_id = '$account_id')")
+in_Guild=$(psql -AXqtc "SELECT EXISTS(SELECT account_id FROM envy_guild_list WHERE account_id = '$account_id')")
 
 g_genID()
 {
@@ -15,7 +15,7 @@ guild_id=$(( RANDOM % 10 ))
                 guild_id="$guild_id""$rand"
         done
 
-        guild_ID_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT guild_id FROM envy_guilds WHERE guild_id = '$guild_id')")
+        guild_ID_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT guild_id FROM envy_guilds WHERE guild_id = '$guild_id')")
 
         if [[ "$guild_ID_Exists" = 't' ]]
         then
@@ -35,7 +35,7 @@ member_id=$(( RANDOM % 10 ))
                 member_id="$member_id""$rand"
         done
 
-        member_ID_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT member_id FROM envy_guild_list WHERE member_id = '$member_id')")
+        member_ID_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT member_id FROM envy_guild_list WHERE member_id = '$member_id')")
 
         if [[ "$member_ID_Exists" = 't' ]]
         then
@@ -47,7 +47,7 @@ member_id=$(( RANDOM % 10 ))
 
 nameExists()
 {
-        guild_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT guild_name FROM envy_guilds WHERE guild_name = '$joinName')")
+        guild_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT guild_name FROM envy_guilds WHERE guild_name = '$joinName')")
 
         if [[ "$guild_Exists" = 't' ]]
         then
@@ -63,7 +63,7 @@ askInput()
         while [[ -z "$askIn" ]]
         do
                 read -p "Which guild do you want to join: " joinName
-                check_name=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT guild_name FROM envy_guilds WHERE guild_name ==
+                check_name=$(psql -AXqtc "SELECT EXISTS(SELECT guild_name FROM envy_guilds WHERE guild_name ==
  '$joinName')")
 
                 if [[ "$check_name" = 'f' ]]
@@ -112,7 +112,7 @@ EOF
         echo "1"
         m_genID
         echo "2"
-        joinID=$(psql -d atahernia -U atahernia -AXqt --command "SELECT guild_id FROM envy_guilds WHERE guild_name = '$joinName'")
+        joinID=$(psql -AXqt --command "SELECT guild_id FROM envy_guilds WHERE guild_name = '$joinName'")
         echo "3"
         member_rank="Tier I"
         echo "4"

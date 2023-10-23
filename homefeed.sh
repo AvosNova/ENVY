@@ -6,13 +6,13 @@ printf "___________________________________\n\n"
 declare -a contentArry=()
 declare -a datearry=()
 
-contentNum=$(psql -d atahernia -AXqt --command "SELECT COUNT(content) FROM envy_content WHERE account_id = '$account_id'")
+contentNum=$(psql -AXqt --command "SELECT COUNT(content) FROM envy_content WHERE account_id = '$account_id'")
 
 IFS="#"
-contentArry=($(psql -d atahernia -AXqt --command "SELECT content FROM envy_content"))
+contentArry=($(psql -AXqt --command "SELECT content FROM envy_content"))
 
 IFS="@"
-dateArry=($(psql -d atahernia -AXqt --command "SELECT date FROM envy_content"))
+dateArry=($(psql -AXqt --command "SELECT date FROM envy_content"))
 
 for (( i=0; i<$((contentNum));i++ ))
 do

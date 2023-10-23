@@ -3,7 +3,6 @@
 ## Initiallizes all tables
 
 psql << EOF
-                \connect atahernia
 
                 BEGIN;
                         CREATE TABLE IF NOT EXISTS envy_accounts 
@@ -80,5 +79,6 @@ psql << EOF
         COMMIT;
 EOF
 
+chmod +x createAcct.sh
 chmod +x envy.sh
 ./envy.sh

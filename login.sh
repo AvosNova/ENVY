@@ -57,7 +57,7 @@ login()
         done
 
 
-        userExists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT username FROM envy_accounts WHERE username = '$username' AND password = '$password')")
+        userExists=$(psql -AXqtc "SELECT EXISTS(SELECT username FROM envy_accounts WHERE username = '$username' AND password = '$password')")
         if [[ "$userExists" = 't' ]]
         then
                 export username

@@ -83,8 +83,7 @@ post()
         fi
 
         psql << EOF
-                \connect atahernia
-
+        
                 INSERT INTO envy_content VALUES
                         ($content_id, $account_id, 
                         $guild_id, '$content', 
@@ -102,7 +101,7 @@ content_id=$(( RANDOM % 10 ))
                 content_id="$content_id""$rand"
         done
 
-        cont_ID_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT content_id FROM envy_content WHERE content_id = '$content_id')")
+        cont_ID_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT content_id FROM envy_content WHERE content_id = '$content_id')")
 
         if [[ "$cont_ID_Exists" = 't' ]]
         then

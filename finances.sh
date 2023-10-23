@@ -11,7 +11,7 @@ f_genID()
                 finance_id="$finance_id""$rand"
         done
 
-        finance_ID_Exists=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT finance_id FROM envy_financials WHERE finance_id = '$finance_id')")
+        finance_ID_Exists=$(psql -AXqtc "SELECT EXISTS(SELECT finance_id FROM envy_financials WHERE finance_id = '$finance_id')")
 
         if [[ "$finance_ID_Exists" = 't' ]]
         then
@@ -66,7 +66,7 @@ update()
         echo -e "\nGreat! How much did you earn today?"
         read -p "Add assets: " add_assets
 
-        cur_assets=$(psql -d atahernia -AXqt --command "SELECT current_finances FROM envy_financials WHERE account_id = '$account_id'")
+        cur_assets=$(psql -AXqt --command "SELECT current_finances FROM envy_financials WHERE account_id = '$account_id'")
 
         total_assets=$((cur_assets+add_assets))
         upload
@@ -146,7 +146,7 @@ EOF
 askNav
 }
 
-isInSystem=$(psql -d atahernia -U atahernia -AXqtc "SELECT EXISTS(SELECT finance_id FROM envy_financials WHERE account_id = '$account_id')")
+isInSystem=$(psql -AXqtc "SELECT EXISTS(SELECT finance_id FROM envy_financials WHERE account_id = '$account_id')")
 
 if [[ "$isInSystem" = 'f' ]]
 then
